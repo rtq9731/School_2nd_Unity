@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -22,8 +23,12 @@ public class Gun : MonoBehaviour
     [Header("총알이 물리적으로 미는 힘")]
     public float impactFos = 60f;
 
+    [SerializeField]
+    [Header("연사인가?")]
+    public bool isAuto = false;
+
     [SerializeField] [Header("연사 시 발사 속도")]
-    public float fireRate = 3f;
+    public float fireRate = 15f;
     private float nextTimeToFire;
 
     [SerializeField]
@@ -33,12 +38,22 @@ public class Gun : MonoBehaviour
     [Header("크로스헤어")]
     public GameObject crosshair = null;
 
+    [SerializeField]
+    [Header("")]
+    public Image reloadImage = null;
+    [SerializeField]
+    [Header("")]
+    public bool isReload = false;
+
+    private float reloadCurTime = 0f;
+    private float reloadMaxTime = 0f;
+
     private void Update()
     {
         crosshair.SetActive(true);
         RaycastHit laserHit;
         Ray laserRay = new Ray(lineLaser.transform.position, lineLaser.transform.forward);
-        if(Physics.Raycast(laserRay, out laserHit))
+        if (Physics.Raycast(laserRay, out laserHit))
         {
             //라인 렌더러의 길이 조정
             lineLaser.SetPosition(1, lineLaser.transform.InverseTransformPoint(laserHit.point));
@@ -51,10 +66,56 @@ public class Gun : MonoBehaviour
             crosshair.SetActive(false);
         }
 
-        if(Input.GetButtonDown("Fire1"))
+        
+
+        { 
+             if (Input.GetKeyDown(KeyCode.V) && !isAuto)
+             {
+                 isAuto = true;
+                 Debug.Log("연사");
+             }
+                 else if (Input.GetKeyDown(KeyCode.V) && isAuto)
+             {
+                 isAuto = false;
+                 Debug.Log("단발");
+             }
+        } //자동인지 검사
+
+
+        if(Input.GetButton("Fire1") && Time.time > nextTimeToFire && isAuto && !isReload)
         {
+            //nextTimeToFire = Time.time + fireRate; // 1초 단위 이상의 딜레이를 준다.
+            nextTimeToFire = Time.time + (1 / fireRate); //0.초 단위의 딜레이를 준다.
             Shoot();
+
+            reloadMaxTime = nextTimeToFire - Time.time;
+            reloadCurTime = 0;
+            isReload = true;
+
         }
+
+        if (Input.GetButtonDown("Fire1") && !isAuto && !isReload)
+        {
+            nextTimeToFire = Time.time + (1 / fireRate); //0.초 단위의 딜레이를 준다.
+            Shoot();
+
+            reloadMaxTime = nextTimeToFire - Time.time;
+            reloadCurTime = 0;
+            isReload = true;
+        }
+
+        // 재장전 게이지 처리
+        if(isReload)
+        {
+            reloadCurTime += Time.deltaTime;
+            reloadImage.fillAmount = reloadCurTime / reloadMaxTime;
+            if(reloadCurTime / reloadMaxTime > 1)
+            {
+                reloadImage.fillAmount = 0;
+                isReload = false;
+            }
+        }
+
     }
 
     private void Shoot()
