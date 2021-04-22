@@ -36,12 +36,12 @@ public class FadeCorutine : MonoBehaviour
         if (fadeInEffectTime == 0)
         {
             fadeInEffectTime = 1;
-            Debug.Log("페이드 인에 걸리는 시간이 0일 수 없습니다!");
+            Debug.Log("페이드 인에 걸리는 시간을 자동으로 1로 설정합니다.");
         }
         if (fadeOutEffectTime == 0)
         {
             fadeOutEffectTime = 1;
-            Debug.Log("페이드 아웃에 걸리는 시간이 0일 수 없습니다!");
+            Debug.Log("시간이 입력되지 않아 페이드 아웃에 걸리는 시간을 자동으로 1로 설정합니다.");
         }
 
         sb = new StringBuilder();
