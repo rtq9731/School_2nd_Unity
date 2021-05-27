@@ -42,6 +42,14 @@ public class MoveAgent : MonoBehaviour
         }
     }
 
+    public float speed
+    {
+        get
+        {
+            return agent.velocity.magnitude;
+        }
+    }
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

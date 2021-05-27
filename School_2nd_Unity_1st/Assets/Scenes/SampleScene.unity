@@ -9135,6 +9135,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4679773111728864, guid: 9727ae13651b3ec479e72087edcab97a, type: 3}
   m_PrefabInstance: {fileID: 269605460}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &281397758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 281397759}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &281397759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281397758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.046, y: 0.0866, z: 0.973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1221227057}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &284138002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37998,6 +38028,43 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4679773111728864, guid: 9727ae13651b3ec479e72087edcab97a, type: 3}
   m_PrefabInstance: {fileID: 1218596713}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1221227056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: fb8b8a16fd3ec410a89c2880b5e18f47, type: 3}
+  m_PrefabInstance: {fileID: 1245968325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1221227057 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: fb8b8a16fd3ec410a89c2880b5e18f47, type: 3}
+  m_PrefabInstance: {fileID: 1245968325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1221227058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221227056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c4d426b59381d4880a54e1323ef336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePos: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  sheellEjectEffect: {fileID: 0}
+  bulletLineEffectTiem: 0.03
+  bulletLineRenderer: {fileID: 0}
+  damage: 25
+  fireDistance: 50
+  magCapacity: 10
+  magAmmo: 0
+  numberOfObj: 0
+  timeBetFire: 0.12
+  reloadTime: 1
+  lastFireTime: 0
+  reloadSound: {fileID: 0}
+  fireSound: {fileID: 0}
 --- !u!1001 &1227327985
 PrefabInstance:
   m_ObjectHideFlags: 0

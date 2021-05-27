@@ -24,9 +24,14 @@ public class EnemyAI : MonoBehaviour
     private WaitForSeconds ws;
     private MoveAgent moveAgent;
 
+    private Animator anim;
+    private readonly int hashMove = Animator.StringToHash("isMove");
+    private readonly int hashSpeed = Animator.StringToHash("speed");
+
     private void Awake()
     {
         moveAgent = GetComponent<MoveAgent>();
+        anim = gameObject.GetComponent<Animator>();
     }
 
     void Start()
@@ -39,16 +44,15 @@ public class EnemyAI : MonoBehaviour
         ws = new WaitForSeconds(judgeRange);
     }
 
+    private void Update()
+    {
+        anim.SetFloat(hashSpeed, moveAgent.speed);
+    }
+
     private void OnEnable()
     {
         StartCoroutine(CheckState());
         StartCoroutine(DoAction());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private IEnumerator CheckState()
@@ -89,12 +93,15 @@ public class EnemyAI : MonoBehaviour
             {
                 case EnemyState.Patrol:
                     moveAgent.isPatrol = true;
+                    anim.SetBool(hashMove, true);
                     break;
                 case EnemyState.Trace:
                     moveAgent.traceTarget = playerTr.position;
+                    anim.SetBool(hashMove, true);
                     break;
                 case EnemyState.Attack:
                     moveAgent.Stop();
+                    anim.SetBool(hashMove, false);
                     break;
                 case EnemyState.Die:
                     moveAgent.Stop();
