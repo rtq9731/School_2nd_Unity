@@ -42,15 +42,4 @@ public class EffectManager : MonoBehaviour
 
         return effect;
     }
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
-
 }

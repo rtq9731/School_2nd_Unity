@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,8 @@ public class EnemyAI : MonoBehaviour
     private Animator anim;
     private readonly int hashMove = Animator.StringToHash("isMove");
     private readonly int hashSpeed = Animator.StringToHash("speed");
+    private readonly int hashDie = Animator.StringToHash("die");
+    private readonly int hashDieIdx = Animator.StringToHash("dieIdx");
 
     private EnemyFOV fov;
     private EnemyShooter shooter;
@@ -44,10 +47,14 @@ public class EnemyAI : MonoBehaviour
     {
         playerTr = GameManager.Instance.GetPlayer();
         ws = new WaitForSeconds(judgeDelay);//AI가 판단을 내리는 딜레이시간
+
+        GameManager.Instance.GetPlayer().GetComponent<PlayerHealth>().OnDeath += () => state = EnemyState.DIE;
     }
 
     void OnEnable()
     {
+        state = EnemyState.PATROL;
+        isDie = false;
         StartCoroutine(CheckState());
         StartCoroutine(DoAction());
     }
@@ -115,13 +122,24 @@ public class EnemyAI : MonoBehaviour
                     moveAgent.Stop();
                     shooter.isFire = false;
                     isDie = true;
+                    anim.SetInteger(hashDieIdx, UnityEngine.Random.Range(0, 3));
+                    anim.SetTrigger(hashDie);
                     break;
             }
         }
     }
 
+    //플레이어 사망, 적 모두 사망
+
     public void SetDead()
     {
         state = EnemyState.DIE;
+        StartCoroutine(DeadProcess());
+    }
+
+    private IEnumerator DeadProcess()
+    {
+        yield return new WaitForSeconds(5f);
+        gameObject.SetActive(false);
     }
 }

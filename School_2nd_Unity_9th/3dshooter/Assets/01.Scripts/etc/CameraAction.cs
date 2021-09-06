@@ -40,24 +40,24 @@ public class CameraAction : MonoBehaviour
 
     }
 
-    public IEnumerator ShakeUpdate(float intensity, float time)
+    public IEnumerator ShakeUpdate(float intensity, float time) // 수행평가 나올거임.
     {
         bPerin.m_AmplitudeGain = intensity;
-        currentTime = time;
+        currentTime = 0;
 
         while (true)
         {
             yield return null;
-            currentTime -= Time.deltaTime;
-            if(currentTime <= 0)
+            currentTime += Time.deltaTime;
+            if(currentTime >= time)
             {
-                currentTime = 0;
                 break;
             }
-            bPerin.m_AmplitudeGain = Mathf.Lerp(intensity, 0f, 1 - currentTime / time);
+            bPerin.m_AmplitudeGain = Mathf.Lerp(intensity, 0f, currentTime / time);
         }
 
         isShake = false;
+        bPerin.m_AmplitudeGain = 0;
     }
 
 }

@@ -24,8 +24,13 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        Vector3 dir = ( transform.forward * playerInput.frontMove  
-                        + transform.right * playerInput.rightMove).normalized;
+        Transform cam = Camera.main.transform;
+
+        Vector3 forward = Quaternion.Euler(new Vector3(-52, 0, 0)) * cam.forward;
+        Vector3 dir = ( forward * playerInput.frontMove + cam.right * playerInput.rightMove).normalized;
+
+        dir.y = 0;
+
         characterController.Move(dir * moveSpeed * Time.deltaTime);
     }
 
