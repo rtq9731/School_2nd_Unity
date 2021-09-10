@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,9 @@ public class Gun : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public event Action<int> UpdateBullet;
+    public event Action<int> UpdateMaxBullet;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -42,6 +46,12 @@ public class Gun : MonoBehaviour
         magAmmo = magCapacity;
         state = State.Ready;
         lastFireTime = 0;
+
+        UpdateMaxBullet += x => { };
+        UpdateBullet += x => { };
+
+        UpdateMaxBullet(magCapacity);
+        UpdateBullet(magAmmo);
     }
 
     public void Fire()
@@ -79,7 +89,8 @@ public class Gun : MonoBehaviour
 
         StartCoroutine(ShotEffect(hitPosition));
         magAmmo--;
-        if(magAmmo <= 0)
+        UpdateBullet(magAmmo);
+        if (magAmmo <= 0)
         {
             state = State.Empty;
         }
@@ -114,6 +125,7 @@ public class Gun : MonoBehaviour
         
         yield return new WaitForSeconds(reloadTime);
         magAmmo = magCapacity;
+        UpdateBullet(magAmmo);
         state = State.Ready;
     }
 }
