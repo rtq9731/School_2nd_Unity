@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Test4 : MonoBehaviour
 {
-    SerializeField
+
     public delegate int GGM(int a, int b);
 
     public GGM g;
