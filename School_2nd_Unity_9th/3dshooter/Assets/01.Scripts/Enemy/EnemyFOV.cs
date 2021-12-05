@@ -15,6 +15,7 @@ public class EnemyFOV : MonoBehaviour
     //반지름 1인 원의 원주에 있는 점의 좌표를 구하는 함수
     public Vector3 CirclePoint(float angle)
     {
+        Debug.Log(angle);
         angle += transform.eulerAngles.y;
         return new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad),
                             0,
