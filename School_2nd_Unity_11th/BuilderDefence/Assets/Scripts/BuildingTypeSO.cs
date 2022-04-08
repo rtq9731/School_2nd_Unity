@@ -11,4 +11,12 @@ public class BuildingTypeSO : ScriptableObject
     public ResourceGeneratorData resGeneratorDt;
 
     public Sprite sprite;
+
+    public float minConstructRadius = 1; // 건물 간 거리값
+
+    // 빌딩 코스트 추가 변수
+
+    public ResAmount[] buildResCostArr;
+
+    public int healthAmountMax;
 }

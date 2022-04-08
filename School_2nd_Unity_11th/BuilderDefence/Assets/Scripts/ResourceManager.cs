@@ -8,6 +8,8 @@ public class ResourceManager : MonoBehaviour
 
     private Dictionary<ResourceTypeSO, int> resourceAmountDic;
 
+    [SerializeField] private List<ResAmount> startingResAmount = new List<ResAmount>();
+
     public System.Action<ResourceTypeSO, int> onResourceAmountChanged = (x, y) => { };
 
     private void Awake()
@@ -17,12 +19,17 @@ public class ResourceManager : MonoBehaviour
         resourceAmountDic = new Dictionary<ResourceTypeSO, int>();
 
         ResourceTypeListSO resTypeList = Resources.Load<ResourceTypeListSO>(typeof(ResourceTypeListSO).Name);
-        foreach(ResourceTypeSO resType in resTypeList.resList)
+        foreach (ResourceTypeSO resType in resTypeList.resList)
         {
             resourceAmountDic[resType] = 0;
         }
 
-        TestLogResAmountDic();
+        foreach (var item in startingResAmount)
+        {
+            AddResource(item.resourceType, item.amount);
+        }
+
+        //TestLogResAmountDic();
     }
 
     private void Update()
@@ -42,12 +49,18 @@ public class ResourceManager : MonoBehaviour
         resourceAmountDic[resType] += amount;
         onResourceAmountChanged?.Invoke(resType, resourceAmountDic[resType]);
 
-        TestLogResAmountDic();
+        //TestLogResAmountDic();
     }
 
     public int GetResourceAmount(ResourceTypeSO resType)
     {
         return resourceAmountDic[resType];
+    }
+
+    public void SetResourceAmount(ResourceTypeSO resType, int value)
+    {
+        resourceAmountDic[resType] = value;
+        onResourceAmountChanged?.Invoke(resType, value);
     }
 
     void TestLogResAmountDic()

@@ -17,4 +17,11 @@ MonoBehaviour:
   resGeneratorDt:
     timerMax: 1
     resType: {fileID: 11400000, guid: ab978e84a1154e04d8edd8d9a980a532, type: 2}
+    detectionRad: 7
+    maxResAmount: 5
   sprite: {fileID: 21300000, guid: 2263e91ebcd2a254dab5f4caccb4a7af, type: 3}
+  minConstructRadius: 7
+  buildResCostArr:
+  - resourceType: {fileID: 11400000, guid: ea4104635f2a1f74f8b40cfb8ac64c8d, type: 2}
+    amount: 30
+  healthAmountMax: 100
